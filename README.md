@@ -1,8 +1,8 @@
 # Minetest mod “LOTT Mines”
 - this mod adds abandoned mines, similar to MC. 
-- originaly **Mines** by BlockMen) from [[Mod] Mines [0.3 beta] [mines] - Minetest Forums](https://forum.minetest.net/viewtopic.php?t=6307)
+- originaly **Mines** by *BlockMen* from [[Mod] Mines [0.3 beta] [mines] - Minetest Forums](https://forum.minetest.net/viewtopic.php?t=6307)
 - optimized for usage inside [Lord of the Test - ContentDB](https://content.minetest.net/packages/Amaz/lordofthetest/)
-  - hot fix for not spawning fences (replace all by trees) → maybe final decision (I like it)
+  - hot-fix for non-spawned fences (replace all by trees) → maybe final decision (I like it)
   - increased num of spawning and chests (includig more highter chance for items inside: ingots, mese crystals, …
 
 ## Instalation
