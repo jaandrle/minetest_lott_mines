@@ -9,6 +9,7 @@
 Move files inside `minetest_config_folder/mods/mines` or `minetest_config_folder/games/lordofthetest/mods/mines` (autoloaded with LOTT game).
 
 ## Settings
+```
 mines_deep_min = -64
 ^ at this deep mines are created
 mines_deep_max = -380
