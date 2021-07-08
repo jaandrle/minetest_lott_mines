@@ -9,7 +9,7 @@ if not MINE_DEEP_MAX then
     MINE_DEEP_MAX = -380
 end
 if not MINE_FACTOR then
-    MINE_FACTOR = 1.5
+    MINE_FACTOR = 3
 end
 
 minetest.register_node("mines:dummy", {
@@ -31,21 +31,38 @@ minetest.register_node("mines:dummy", {
 
 local ids = {
 	air = minetest.get_content_id("air"),
-	fence = minetest.get_content_id("default:fence_wood"),
-	wood = minetest.get_content_id("default:wood"),
+	fence = minetest.get_content_id("default:jungletree"),
+	wood = minetest.get_content_id("default:tree"),
 	dummy = minetest.get_content_id("mines:dummy")
 }
 
 local chest_stuff = {
-	{name="default:apple", max = 3},
-	{name="farming:bread", max = 3},
-	{name="default:steel_ingot", max = 2},
-	{name="default:gold_ingot", max = 2},
-	{name="default:diamond", max = 1},
-	{name="default:pick_steel", max = 1},
-	{name="default:pick_diamond", max = 1}
-
+	{name="farming:bread", max = 30},
+	{name="lottfarming:mushroom_soup", max = 30},
+	{name="default:mese_crystal", max = 90},
+	{name="default:torch", max = 90},
+	{name="default:coal_lump", max = 90},
+	{name="default:ladder", max = 90},
 }
+local materials_default = {
+	"steel", "bronze" 
+}
+for i in ipairs(materials_default) do
+	table.insert(chest_stuff, { name="default:"..materials_default[i].."_ingot", max= 70 })
+	table.insert(chest_stuff, { name="default:pick_"..materials_default[i], max= 1 })
+end
+local materials_lott = {
+	{"copper", "default:copper_ingot"},
+	{"tin", "lottores:tin_ingot"},
+	{"silver", "lottores:silver_ingot"},
+	{"gold", "default:gold_ingot"},
+	{"galvorn", "lottores:galvorn_ingot"},
+	{"mithril", "lottores:mithril_ingot"},
+}
+for i in ipairs(materials_lott) do
+	table.insert(chest_stuff, { name=materials_lott[i][2], max= 65-i*10 })
+	table.insert(chest_stuff, { name="lottores:"..materials_lott[i][1].."pick", max= 1 })
+end
 
 local function rotate_torch(pos)
 	minetest.after(8, function()
@@ -69,9 +86,9 @@ local function fill_chest(pos)
 				--meta:set_string("infotext", "Chest")
 				local inv = meta:get_inventory()
 				inv:set_size("main", 8*4)
-				for i=0,2,1 do
+				for i=0,15,1 do
 					local stuff = chest_stuff[math.random(1,#chest_stuff)]
-					local stack = {name=stuff.name, count = math.random(1,stuff.max)}
+					local stack = {name=stuff.name, count = math.random(5,stuff.max)}
 					if not inv:contains_item("main", stack) then
 						inv:set_stack("main", math.random(1,32), stack)
 					end
@@ -187,7 +204,7 @@ local function make_mine(mpos,p2,p3, vm_data, vx_area,cnt)
 				vm_data[vx_area:indexp({x=x4, y=pos.y-1, z=z4})] = ids.dummy
 				rotate_torch({x=x4, y=pos.y-1, z=z4})
 			end
-			if math.random(0,60) == 13 then
+			if math.random(0,6) == 3 then
 				local p = {x=x5, y=pos.y-1, z=z5}
 				if vm_data[vx_area:indexp(p)] ~= ids.fence then
 					vm_data[vx_area:indexp(p)] = ids.dummy
